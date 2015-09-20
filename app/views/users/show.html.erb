@@ -1,4 +1,38 @@
+
 <h1>
-  <%= gravatar_for @user %>
-  <%= @user.name %>
+  Profile
 </h1>
+
+<div class="row">
+  <div class="col-lg-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="media">
+          <a class="media-left" href="#">
+          <%= gravatar_for @user %>
+          </a>
+          <div class="media-body">
+            <h3 class="media-heading">
+              <%= @user.name %>
+            </h3>
+            <h3>
+              <%= link_to \
+                '<span class="label label-info glyphicon glyphicon-pencil">edit</span>'.html_safe ,\
+                edit_user_path(@user) %>
+            </h3>
+          </div>
+        </div>
+        <ul class="nav nav-pills">
+          <li><a href=""><i class="glyphicon glyphicon-envelope"></i> <%= @user.email %></a></li>
+          <li><a href=""><i class="glyphicon glyphicon-user"></i> <%= @user.description %></a></li>
+          <li><a href=""><i class="glyphicon glyphicon-map-marker"></i> <%= @user.location %></a></li>
+        </ul> 
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <h1>
+      timeline
+    </h1>
+  </div>
+</div>

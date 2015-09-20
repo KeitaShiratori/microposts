@@ -1,2 +1,13 @@
 <h1>StaticPages#home</h1>
 <p>Find me in app/views/static_pages/home.html.erb</p>
+
+<ul>
+  <li><%= link_to "Home", root_path %></li>
+  <li><%= link_to "Help", '#' %></li>
+  <li><%= link_to "Users", '#' %></li>
+  <li><%= link_to "Profile", current_user %></li>
+  <li><%= link_to "Settings", edit_user_path(current_user) if logged_in? %></li>
+  <li><%= link_to "Log out", logout_path, method: "delete" %></li>
+  <li><%= link_to "Log in", login_path %></li>
+  <li><%= link_to "Sign up", signup_path %></li>
+</ul>
