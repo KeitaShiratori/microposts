@@ -1,4 +1,3 @@
-
 <h1>
   Profile
 </h1>
@@ -9,7 +8,7 @@
       <div class="panel-heading">
         <div class="media">
           <a class="media-left" href="#">
-          <%= gravatar_for @user %>
+            <%= gravatar_for @user %>
           </a>
           <div class="media-body">
             <h3 class="media-heading">
@@ -22,7 +21,7 @@
             </h3>
           </div>
         </div>
-        <ul class="nav nav-pills">
+        <ul class="nav nav-pills nav-stacked">
           <li><a href=""><i class="glyphicon glyphicon-envelope"></i> <%= @user.email %></a></li>
           <li><a href=""><i class="glyphicon glyphicon-user"></i> <%= @user.description %></a></li>
           <li><a href=""><i class="glyphicon glyphicon-map-marker"></i> <%= @user.location %></a></li>
