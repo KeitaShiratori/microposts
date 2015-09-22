@@ -31,8 +31,11 @@ class UsersController < ApplicationController
       flash[:danger] = 'パスワードが一致しません'
       return render 'edit'
     end
+    
+    profile = user_profile
+    profile.delete(:old_password)
 
-    if @user.update(user_profile)
+    if @user.update(profile)
       # 保存に成功した場合はトップページへリダイレクト
       flash[:info] = 'メッセージを編集しました'
       redirect_to @user
@@ -52,7 +55,7 @@ class UsersController < ApplicationController
     
   # get parameters for profile editing
   def user_profile
-    params.require(:user).permit(:name, :email, :description, :location, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :description, :location, :password, :password_confirmation, :old_password)
   end
   
   def check_old_pwd
