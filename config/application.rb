@@ -33,5 +33,7 @@ module Microposts
 
     # デフォルトは :log で, 許可されていないパラメータは無視されたうえでログ出力されます.
     config.action_controller.action_on_unpermitted_parameters = :raise
+    
+    config.action_view.embed_authenticity_token_in_remote_forms = true
   end
 end
