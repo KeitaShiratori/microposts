@@ -2,9 +2,10 @@ class UsersController < ApplicationController
   before_action :set_message, only: [:edit, :update, :destroy]
   
   def show
-   @user = User.find(params[:id])
+    @user = User.find(params[:id])
+    @microposts = @user.microposts
   end
-  
+
   def new
     @user = User.new
   end
