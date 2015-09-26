@@ -28,13 +28,13 @@
         </ul> 
       </div>
       <ul class="nav nav-tabs nav-justified">
-      	<li role="presentation" class="tabmenu tweets active">
+      	<li role="presentation" class="tabmenu active" id="tweets">
       	  <%= link_to "Tweets", @user %>
       	</li>
-      	<li role="presentation" class="tabmenu following">
+      	<li role="presentation" class="tabmenu" id="following">
       	  <%= link_to "Following", following_path(:follower_id=>@user.id), remote: true %>
         </li>
-      	<li role="presentation" class="tabmenu followers">
+      	<li role="presentation" class="tabmenu" id="followers">
       	  <%= link_to "Followers", followers_path(:followed_id=>@user.id), remote: true %>
         </li>
       </ul>
