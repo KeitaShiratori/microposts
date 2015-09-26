@@ -1,18 +1,3 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
-
-<ul>
-  <li><%= link_to "Home", root_path %></li>
-  <li><%= link_to "Help", '#' %></li>
-  <li><%= link_to "Users", '#' %></li>
-  <li><%= link_to "Profile", current_user %></li>
-  <li><%= link_to "Settings", edit_user_path(current_user) if logged_in? %></li>
-  <li><%= link_to "Log out", logout_path, method: "delete" %></li>
-  <li><%= link_to "Log in", login_path %></li>
-  <li><%= link_to "Sign up", signup_path %></li>
-</ul>
-
-
 <% if logged_in? %>
   <div class="row">
     <aside class="col-md-4">
@@ -23,7 +8,11 @@
         <%= render 'shared/micropost_form' %>
       </section>
     </aside>
-  </div>
+    <div class="col-md-8">
+      <h3>Micropost Feed</h3>
+      <%= render 'shared/feed' %>
+    </div>
+   </div>
 <% else %>
   <div class="center jumbotron">
     <h1>Welcome to the Microposts</h1>
