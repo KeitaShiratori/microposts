@@ -3,7 +3,7 @@
 </h1>
 
 <div class="row">
-  <div class="col-lg-4">
+  <div class="col-md-4">
     <div class="panel panel-default">
       <div class="panel-heading">
         <div class="media">
@@ -27,16 +27,27 @@
           <li><a href=""><i class="glyphicon glyphicon-map-marker"></i> <%= @user.location %></a></li>
         </ul> 
       </div>
+      <ul class="nav nav-tabs nav-justified">
+      	<li role="presentation" class="tabmenu tweets active">
+      	  <%= link_to "Tweets", @user %>
+      	</li>
+      	<li role="presentation" class="tabmenu following">
+      	  <%= link_to "Following", following_path(:follower_id=>@user.id), remote: true %>
+        </li>
+      	<li role="presentation" class="tabmenu followers">
+      	  <%= link_to "Followers", followers_path(:followed_id=>@user.id), remote: true %>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>
-    <% if @user.microposts.any? %>
+    <div id="follow_list">
       <h3>Microposts (<%= @user.microposts.count %>)</h3>
       <ol class="microposts">
         <%= render @microposts %>
       </ol>
-    <% end %>
+    </div>
   </div>
 </div>
 

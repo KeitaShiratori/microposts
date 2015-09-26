@@ -1,0 +1,9 @@
+<h3>
+  Followers (<%= @followers.count %>)
+</h3>
+
+<ol class="followers">
+  <% @followers.reverse_each do |u| %>
+    <%= render partial: 'users/followuser', locals: { u: u } %>
+  <% end %>
+</ol>

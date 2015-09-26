@@ -47,6 +47,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def following
+    @following = User.find(params[:follower_id]).following_users
+  end
+  
+  def followers
+    @followers = User.find(params[:followed_id]).follower_users
+  end
+    
   private
 
   # get parameters for sinup

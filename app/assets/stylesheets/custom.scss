@@ -146,7 +146,7 @@ aside {
 
 /* microposts */
 
-.microposts {
+.microposts, .followers, .following  {
   list-style: none;
   padding: 0;
   li {
@@ -165,7 +165,7 @@ aside {
       padding: 5px 0;
     }
   }
-  .timestamp {
+  .timestamp, .location {
     color: $gray-light;
     display: block;
     margin-left: 60px;
