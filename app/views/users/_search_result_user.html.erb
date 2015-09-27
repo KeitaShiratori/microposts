@@ -1,0 +1,9 @@
+<h3>
+  <%= @users.count %> Users Found
+</h3>
+
+<ol class="following">
+  <% @users.each do |u| %>
+    <%= render partial: 'users/followuser', locals: { u: u } %>
+  <% end %>
+</ol>

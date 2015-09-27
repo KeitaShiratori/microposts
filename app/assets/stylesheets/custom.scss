@@ -84,7 +84,7 @@ $gray-medium-light: #eaeaea;
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 0px;
   @include box_sizing;
 }
 
@@ -152,6 +152,9 @@ aside {
   li {
     padding: 10px 0;
     border-top: 1px solid #e8e8e8;
+  }
+  .follow-user-card{
+    border-bototm :3px solid #e8e8e8;
   }
   .user {
     margin-top: 5em;

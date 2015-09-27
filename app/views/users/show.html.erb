@@ -1,54 +1,25 @@
-<h1>
-  Profile
-</h1>
-
 <div class="row">
   <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <div class="media">
-          <a class="media-left" href="#">
-            <%= gravatar_for @user %>
-          </a>
-          <div class="media-body">
-            <h3 class="media-heading">
-              <%= @user.name %>
-            </h3>
-            <h3>
-              <%= link_to \
-                '<span class="label label-info glyphicon glyphicon-pencil">edit</span>'.html_safe ,\
-                edit_user_path(@user) %>
-            </h3>
-          </div>
-        </div>
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href=""><i class="glyphicon glyphicon-envelope"></i> <%= @user.email %></a></li>
-          <li><a href=""><i class="glyphicon glyphicon-user"></i> <%= @user.description %></a></li>
-          <li><a href=""><i class="glyphicon glyphicon-map-marker"></i> <%= @user.location %></a></li>
-        </ul> 
-      </div>
-      <ul class="nav nav-tabs nav-justified">
-      	<li role="presentation" class="tabmenu active" id="tweets">
-      	  <%= link_to "Tweets", @user %>
-      	</li>
-      	<li role="presentation" class="tabmenu" id="following">
-      	  <%= link_to "Following", following_path(:follower_id=>@user.id), remote: true %>
-        </li>
-      	<li role="presentation" class="tabmenu" id="followers">
-      	  <%= link_to "Followers", followers_path(:followed_id=>@user.id), remote: true %>
-        </li>
-      </ul>
-    </div>
+    <%= render 'shared/sidebar' %>
+    <%= render 'follow_form' if logged_in? %>
   </div>
   <div class="col-md-8">
-    <%= render 'follow_form' if logged_in? %>
+    <ul class="nav nav-tabs nav-justified">
+    	<li role="presentation" class="tabmenu active" id="feed">
+    	  <%= link_to "Feed", feed_path(:id=>@user.id), remote: true %>
+    	</li>
+    	<li role="presentation" class="tabmenu" id="microposts">
+    	  <%= link_to "Microposts", microposts_path(:id=>@user.id), remote: true %>
+    	</li>
+    	<li role="presentation" class="tabmenu" id="following">
+    	  <%= link_to "Following", following_path(:follower_id=>@user.id), remote: true %>
+      </li>
+    	<li role="presentation" class="tabmenu" id="followers">
+    	  <%= link_to "Followers", followers_path(:followed_id=>@user.id), remote: true %>
+      </li>
+    </ul>
     <div id="follow_list">
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
-        <% @microposts.reverse_each do |micropost| %>
-          <%= render partial: 'microposts/micropost', locals: { micropost: micropost } %>
-        <% end %>
-      </ol>
+      <%= render 'feed_list' %>
     </div>
   </div>
 </div>

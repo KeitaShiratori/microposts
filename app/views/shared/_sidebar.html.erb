@@ -1,0 +1,44 @@
+<% if @user.present? %>
+  <% disp_user = @user %>
+<% else %>
+  <% disp_user = current_user %>
+<% end %>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="media">
+      <a class="media-left" href="#">
+        <%= gravatar_for disp_user %>
+      </a>
+      <div class="media-body">
+        <h3 class="media-heading">
+          <%= disp_user.name %>
+        </h3>
+        <span><%= pluralize(disp_user.microposts.count, "micropost") %></span>
+        <% if current_user == disp_user %>
+          <h4 class="media-heading">
+            <%= link_to \
+              '<span class="label label-info glyphicon glyphicon-pencil">Settings</span>'.html_safe ,\
+              edit_user_path(current_user) %>
+          </h4>
+        <% end %>
+      </div>
+    </div>
+    <ul class="nav nav-pills nav-stacked">
+      <% if current_user == disp_user %>
+        <li><a><i class="glyphicon glyphicon-envelope"></i> <%= disp_user.email %></a></li>
+      <% end %>
+      <li><a><i class="glyphicon glyphicon-user"></i> <%= disp_user.description %></a></li>
+      <li><a><i class="glyphicon glyphicon-map-marker"></i> <%= disp_user.location %></a></li>
+    </ul> 
+  </div>
+</div>
+<% if current_user == disp_user %>
+  <aside>
+    <section class="micropost_form">
+      <%= render 'shared/micropost_form' %>
+    </section>
+  </aside>
+  <hr>
+<% end %>
