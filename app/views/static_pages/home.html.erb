@@ -20,8 +20,8 @@
 
 <% else %>
   <div class="center jumbotron">
-    <h1>Welcome to the Microposts</h1>
+    <h1><%= I18n.t('static_pages.welcome_message') %></h1>
 
-    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+    <%= link_to "#{I18n.t('static_pages.sign_up_now')}", signup_path, class: "btn btn-lg btn-primary" %>
   </div>
 <% end %>
