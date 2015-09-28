@@ -22,6 +22,11 @@ class User < ActiveRecord::Base
                                     dependent:   :destroy
   has_many :follower_users, through: :follower_relationships, source: :follower
 
+  has_many :user_retweets, class_name:  "Retweet",
+                                    foreign_key: "user_id",
+                                    dependent:   :destroy
+  has_many :user_microposts, through: :user_retweets, source: :micropost
+  
   # モデルメソッド定義
   # 他のユーザーをフォローする
   def follow(other_user)
@@ -40,6 +45,22 @@ class User < ActiveRecord::Base
   
   def feed_items
     Micropost.where(user_id: following_user_ids)
+  end
+
+  # リツイート関係のメソッド
+  # あるmicropostをリツイートする
+  def retweet(micropost)
+    user_retweets.create(micropost_id: micropost.id)
+  end
+
+  # フォローしているユーザーをアンフォローする
+  def unretweet(micropost)
+    user_retweets.find_by(micropost_id: micropost.id).destroy
+  end
+
+  # あるユーザーをフォローしているかどうか？
+  def retweet?(micropost)
+    user_microposts.include?(micropost)
   end
   
 end

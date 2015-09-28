@@ -1,0 +1,9 @@
+<% if current_user.id != @m.user_id %>
+  <div id="retweet_form-<%= @m.id %>">
+  <% if current_user.retweet?(@m) %>
+    <%= render 'shared/unretweet' %>
+  <% else %>
+    <%= render 'shared/retweet' %>
+  <% end %>
+  </div>
+<% end %>

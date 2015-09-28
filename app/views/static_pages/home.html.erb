@@ -7,21 +7,14 @@
       <h3>
         <%= page_entries_info @microposts %>
       </h3>
-      <ol class="microposts">
-        <% @microposts.reverse_each do |micropost| %>
-          <%= render partial: 'microposts/micropost', locals: { micropost: micropost } %>
-        <% end %>
-      </ol>
-      
+      <%= render 'shared/micropost_list' %>
       <%= paginate @microposts %>
-      
     </div>
   </div>
 
 <% else %>
   <div class="center jumbotron">
     <h1><%= I18n.t('static_pages.welcome_message') %></h1>
-
     <%= link_to "#{I18n.t('static_pages.sign_up_now')}", signup_path, class: "btn btn-lg btn-primary" %>
   </div>
 <% end %>

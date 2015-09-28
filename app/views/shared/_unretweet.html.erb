@@ -1,0 +1,2 @@
+<%= link_to "Unretweet", current_user.user_retweets.find_by(micropost_id: @m.id),
+      method: :delete, remote: true %>

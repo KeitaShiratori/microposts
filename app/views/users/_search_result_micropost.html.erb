@@ -1,11 +1,4 @@
-<% p @microposts %>
-
 <h3>
   <%= @microposts.count %> Microposts Found
 </h3>
-
-<ol class="microposts">
-  <% @microposts.reverse_each do |micropost| %>
-    <%= render partial: 'microposts/micropost', locals: { micropost: micropost } %>
-  <% end %>
-</ol>
+<%= render 'shared/micropost_list' %>

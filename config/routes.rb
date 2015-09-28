@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   get 'search_microposts'  => 'users#search_microposts'
 
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions,      only: [:new, :create, :destroy]
   resources :microposts
-  resources :relationships, only: [:create, :destroy]
+  resources :relationships, only: [      :create, :destroy]
+  resources :retweets,      only: [      :create, :destroy]
 end

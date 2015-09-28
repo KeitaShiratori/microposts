@@ -1,13 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_message, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:edit, :microposts, :feed, :update, :destroy]
   
   def index
     if !logged_in?
       redirect_to root_url
     end
 
-    @users = search_user
-
+    search_users
     @micropost = current_user.microposts.build
   end
   
@@ -21,10 +20,9 @@ class UsersController < ApplicationController
 
   def show
     if logged_in?
-      @user = User.find(params[:id])
+      set_user
       @micropost = @user.microposts.build
-      @microposts = @user.microposts
-      @feed_items = @user.feed_items.includes(:user).order(created_at: :desc)
+      feed
     else
       redirect_to root_url
     end
@@ -47,7 +45,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = set_user
   end
 
   # users_controller.rb
@@ -80,15 +78,15 @@ class UsersController < ApplicationController
   end
   
   def microposts
-    @user = User.find(params[:id])
     @microposts = @user.microposts
   end
   
   def feed
-    @feed_items = User.find(params[:id]).feed_items.includes(:user).order(created_at: :desc)
+    @microposts = @user.feed_items.includes(:user).order(created_at: :desc)
   end
     
-  private
+
+private
 
   # get parameters for sinup
   def user_params
@@ -98,6 +96,11 @@ class UsersController < ApplicationController
   # get parameters for profile editing
   def user_profile
     params.require(:user).permit(:name, :email, :description, :location, :password, :password_confirmation, :old_password)
+  end
+  
+  # get parameters for search
+  def search_params
+    params.permit(:q)
   end
   
   def check_old_pwd
@@ -113,17 +116,23 @@ class UsersController < ApplicationController
     end
   end
  
-  def set_message
+  def set_user
     @user=User.find(params[:id])
+  end
+  
+  def set_keyword_array
   end
 
   def search_user
-    return users = Array.new() if params[:q].blank?
-    
+    return users = clear_search_condition if params[:q].blank?
+
     q = search_params[:q]
     session[:q] = q
     keyword_arrays = q.gsub(/　/," ").split()
 
+    # 以下、モデルのクラスメソッドにしたい。
+    # 理想は、User.find_by_array(column_name, keyword_arrays)とかにしたい。
+    # でもって、Micropostの方と共通化したい。
     users = User.arel_table[:name]
     users_sel = users.matches("\%#{keyword_arrays[0]}\%")
     for i in 1...keyword_arrays.length
@@ -135,12 +144,15 @@ class UsersController < ApplicationController
   end
 
   def search_micropost
-    return microposts = Array.new() if params[:q].blank?
+    return microposts = clear_search_condition if params[:q].blank?
     
     q = search_params[:q]
     session[:q] = q
     keyword_arrays = q.gsub(/　/," ").split()
 
+    # 以下、モデルのクラスメソッドにしたい。
+    # 理想は、Micropost.find_by_array(column_name, keyword_arrays)とかにしたい。
+    # でもって、Userの方と共通化したい。
     microposts = Micropost.arel_table[:content]
     microposts_sel = microposts.matches("\%#{keyword_arrays[0]}\%")
     for i in 1...keyword_arrays.length
@@ -151,7 +163,8 @@ class UsersController < ApplicationController
     Micropost.where(microposts_sel)
   end
 
-  def search_params
-    params.permit(:q)
+  def clear_search_condition
+    session[:q] = ""
+    Array.new()
   end
 end
