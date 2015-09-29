@@ -7,4 +7,5 @@ class Micropost < ActiveRecord::Base
                                      foreign_key: "micropost_id",
                                      dependent:   :destroy
   has_many :micropost_users, through: :micropost_retweets, source: :user
+  
 end

@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
                                     dependent:   :destroy
   has_many :follower_users, through: :follower_relationships, source: :follower
 
-  has_many :user_retweets, class_name:  "Retweet",
+  has_many :user_retweets,          class_name:  "Retweet",
                                     foreign_key: "user_id",
                                     dependent:   :destroy
   has_many :user_microposts, through: :user_retweets, source: :micropost
@@ -44,7 +44,13 @@ class User < ActiveRecord::Base
   end
   
   def feed_items
-    Micropost.where(user_id: following_user_ids)
+    cond1 = Micropost.where('retweets.user_id' => following_user_ids)
+    cond2 = Micropost.where('microposts.user_id' => following_user_ids)
+    
+    cond1 = cond1.where_values.reduce(:and)
+    cond2 = cond2.where_values.reduce(:and)
+    
+    Micropost.joins("LEFT JOIN retweets ON microposts.id = retweets.micropost_id").where(cond1.or(cond2)).uniq
   end
 
   # リツイート関係のメソッド
