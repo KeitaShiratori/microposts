@@ -26,7 +26,12 @@ class User < ActiveRecord::Base
                                     foreign_key: "user_id",
                                     dependent:   :destroy
   has_many :user_microposts, through: :user_retweets, source: :micropost
-  
+
+  # Active Record Reputation System
+  # http://railscasts.com/episodes/364-active-record-reputation-system?language=ja&view=asciicast
+  has_reputation :likes, source: {reputation: :likes, of: :microposts}, aggregated_by: :sum
+  has_many :evaluations, class_name: "ReputationSystem::Evaluation", as: :source
+
   # モデルメソッド定義
   # 他のユーザーをフォローする
   def follow(other_user)
@@ -69,4 +74,8 @@ class User < ActiveRecord::Base
     user_microposts.include?(micropost)
   end
   
+  # あるマイクロポストにイイネしたかどうか
+  def liked_for?(micropost)
+    evaluations.where(target_type: micropost.class, target_id: micropost.id).present?
+  end
 end

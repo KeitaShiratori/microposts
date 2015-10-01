@@ -18,3 +18,8 @@
     <%= link_to "#{I18n.t('static_pages.sign_up_now')}", signup_path, class: "btn btn-lg btn-primary" %>
   </div>
 <% end %>
+
+<script>
+  $(".header_nav").removeClass("active");
+  $("#home").addClass("active");
+</script>

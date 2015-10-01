@@ -1,2 +1,3 @@
-<%= link_to "Unretweet", current_user.user_retweets.find_by(micropost_id: @m.id),
-      method: :delete, remote: true %>
+<%= link_to current_user.user_retweets.find_by(micropost_id: @m.id), method: :delete, remote: true do %>
+  <span class="label label-warning glyphicon glyphicon-remove" > <%= I18n.t('users.micropost_list.unretweet') %></span> 
+<% end %>

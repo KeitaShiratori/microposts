@@ -1,1 +1,3 @@
-<%= link_to "Retweet", retweets_path(:micropost_id=>@m.id), method: :post, remote: true %>
+<%= link_to retweets_path(:micropost_id=>@m.id), method: :post, remote: true do %>
+  <span class="label label-info glyphicon glyphicon-retweet" > <%= I18n.t('users.micropost_list.retweet') %></span> 
+<% end %>

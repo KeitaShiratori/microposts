@@ -34,6 +34,8 @@ gem 'kaminari'
 # debug tool
 gem 'pry-byebug', group: :development
 
+# イイネ
+gem 'activerecord-reputation-system', github: 'NARKOZ/activerecord-reputation-system', branch: 'rails4'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

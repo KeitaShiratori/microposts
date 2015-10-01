@@ -13,7 +13,9 @@ Rails.application.routes.draw do
 
   resources :users
   resources :sessions,      only: [:new, :create, :destroy]
-  resources :microposts
+  resources :microposts do
+    member { post :vote }
+  end
   resources :relationships, only: [      :create, :destroy]
   resources :retweets,      only: [      :create, :destroy]
 end

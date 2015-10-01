@@ -51,22 +51,32 @@ p {
   line-height: 1.7em;
 }
 
-/* header */
-
-#logo {
-  float: left;
-  margin-right: 10px;
-  font-size: 1.7em;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: -1px;
-  padding-top: 9px;
-  font-weight: bold;
+/* navigation_header */
+#navigation_header{
+  .active{
+    border-bottom: inset;
+  }
 }
 
-#logo:hover {
-  color: #fff;
-  text-decoration: none;
+/* Genki_sum */
+#genki_sum{
+  margin: 0x;
+  margin-top:-6px;
+  margin-bottom:5px;
+  background: image-url("bg_genki_sum.png") repeat center center;
+  
+  #goku, #enemy{
+    padding: 0px 40px;
+    margin: 5%;
+  }
+
+  #goku{
+    background: image-url("goku_genki_1000.gif") no-repeat center center; 
+  }
+  
+  #enemy{
+    // background: image-url("test.gif") no-repeat center center; 
+  }
 }
 
 /* mixins, variables, etc. */

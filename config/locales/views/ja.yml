@@ -1,0 +1,42 @@
+---
+ja:
+  static_pages:
+    welcome_message: 地球のみんな、オラに元気を分けてくれ！！
+    sign_up_now: 空に手をかざしてみる
+  layouts:
+    home: ホーム
+    my_page: マイページ
+    account: アカウント
+    settings: 設定
+    search: 検索
+    log_in: ログイン
+    log_out: ログアウト
+    sign_up: 新規ユーザ登録
+  users:
+    sign_up:
+      name: ユーザ名
+      email: ログイン用メールアドレス（非公開）
+      password: ログイン用パスワード
+      confirmation: パスワード確認
+      submit: 登録
+    log_in:
+      email: メールアドレス
+      password: パスワード
+      submit: ログイン
+      new_user : 新規ユーザ登録は
+      sign_up_now: コチラ
+    side_bar:
+      micropost: つぶやき
+      genki: ゲンキ
+      settings: 設定
+      whats_happening: いま、何してる？
+      submit: つぶやく
+    micropost_list:
+      posted: ""
+      ago: 前
+      genki: ゲンキ
+      delete: 削除
+      you_sure: 削除してもよろしいですか？
+      unretweet: リツイート解除
+      retweet: リツイート
+      cancel: ゲンキ解除

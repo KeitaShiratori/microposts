@@ -1,0 +1,4 @@
+$("#vote-form-<%= @micropost.id %>").html("<%= escape_javascript(render('shared/flash')) %>");
+$("#vote-form-<%= @micropost.id %>").html("<%= escape_javascript(render('shared/vote_form', micropost: @micropost)) %>");
+$("#genki-<%= @micropost.id %>").html("<%= escape_javascript(render('shared/genki', micropost: @micropost)) %>");
+$("#genki_sum").html("<%= escape_javascript(render('shared/genki_sum')) %>");

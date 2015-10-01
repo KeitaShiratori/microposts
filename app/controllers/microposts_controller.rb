@@ -5,10 +5,11 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
       flash[:success] = "Micropost created!"
-      redirect_to request.referrer
     else
-      render 'static_pages/home'
+      flash[:danger] = 'この内容は登録できません'
     end
+    @microposts = Micropost.page(params[:page])
+    redirect_to request.referrer
   end
   
   def destroy
@@ -19,6 +20,18 @@ class MicropostsController < ApplicationController
     redirect_to request.referrer || root_url
   end
   
+  def vote
+    @micropost = Micropost.find(params[:id])
+    if params[:type] == "up"
+      @micropost.add_evaluation(:likes, 1, current_user)
+      message = "Thank you for Genki!"
+    else 
+      @micropost.delete_evaluation(:likes, current_user)
+      message = "Genki Canceled!"
+    end
+    flash.now[:info] = message
+  end
+
   private
   def micropost_params
     params.require(:micropost).permit(:content)

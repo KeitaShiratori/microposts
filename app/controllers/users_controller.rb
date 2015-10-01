@@ -82,7 +82,7 @@ class UsersController < ApplicationController
   end
   
   def feed
-    @microposts = @user.feed_items.includes(:user).order(created_at: :desc)
+    @microposts = @user.feed_items.includes(:user)
   end
     
 

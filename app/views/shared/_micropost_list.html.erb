@@ -2,6 +2,5 @@
   <% @microposts.reverse_each do |micropost| %>
     <% @m = micropost %>
     <%= render partial: 'microposts/micropost', locals: { micropost: micropost } %>
-    <%= render 'shared/retweet_form' %>
   <% end %>
 </ol>

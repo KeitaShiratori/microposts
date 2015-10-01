@@ -1,9 +1,19 @@
+<span id="genki-<%= micropost.id %>">
+  <%= render 'shared/genki', micropost: micropost %>
+</span>
 <% if current_user.id != @m.user_id %>
-  <div id="retweet_form-<%= @m.id %>">
-  <% if current_user.retweet?(@m) %>
-    <%= render 'shared/unretweet' %>
-  <% else %>
-    <%= render 'shared/retweet' %>
+  <span id="retweet_form-<%= @m.id %>">
+    <% if current_user.retweet?(@m) %>
+      <%= render 'shared/unretweet' %>
+    <% else %>
+      <%= render 'shared/retweet' %>
+    <% end %>
+  </span>
+  <span id="vote-form-<%= micropost.id %>">
+    <%= render 'shared/vote_form', micropost: micropost %>
+  </span>
+<% else %>
+  <%= link_to micropost, method: :delete, data: { confirm: I18n.t('users.micropost_list.you_sure') } do %>
+    <span class="label label-danger glyphicon glyphicon-trash"> <%= I18n.t("users.micropost_list.delete") %></span>
   <% end %>
-  </div>
 <% end %>

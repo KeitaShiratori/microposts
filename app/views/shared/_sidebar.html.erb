@@ -4,7 +4,6 @@
   <% disp_user = current_user %>
 <% end %>
 
-
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="media">
@@ -15,12 +14,15 @@
         <h3 class="media-heading">
           <%= disp_user.name %>
         </h3>
-        <span><%= pluralize(disp_user.microposts.count, "micropost") %></span>
+        <span>
+          <%= pluralize(disp_user.microposts.count, I18n.t('users.side_bar.micropost')) %>,
+          <%= disp_user.reputation_for(:likes).to_i %> <%= I18n.t('users.side_bar.genki') %>
+        </span>
         <% if current_user == disp_user %>
           <h4 class="media-heading">
-            <%= link_to \
-              '<span class="label label-info glyphicon glyphicon-pencil">Settings</span>'.html_safe ,\
-              edit_user_path(current_user) %>
+            <%= link_to '/users/#{current_user.id}/edit' do %>
+              <span class="label label-info glyphicon glyphicon-pencil"><%= I18n.t("users.side_bar.settings") %></span>
+            <% end %>
           </h4>
         <% end %>
       </div>
