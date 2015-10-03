@@ -1,9 +1,11 @@
-<h3>
-  <%= @users.count %> Users Found
-</h3>
-
-<ol class="following">
-  <% @users.each do |u| %>
-    <%= render partial: 'users/followuser', locals: { u: u } %>
-  <% end %>
-</ol>
+<% if @users.present? %>
+  <ol class="following">
+    <% @users.each do |u| %>
+      <%= render partial: 'users/followuser', locals: { u: u } %>
+    <% end %>
+  </ol>
+<% else %>
+  <h4>
+    <%= I18n.t('users.index.users.no_item') %>
+  </h4>
+<% end %>

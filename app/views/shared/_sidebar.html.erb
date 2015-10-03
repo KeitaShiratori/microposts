@@ -17,10 +17,11 @@
         <span>
           <%= pluralize(disp_user.microposts.count, I18n.t('users.side_bar.micropost')) %>,
           <%= disp_user.reputation_for(:likes).to_i %> <%= I18n.t('users.side_bar.genki') %>
-        </span>
+        </span><br>
+        <%= render 'shared/follow_form', user: disp_user if current_user != disp_user%>
         <% if current_user == disp_user %>
           <h4 class="media-heading">
-            <%= link_to '/users/#{current_user.id}/edit' do %>
+            <%= link_to "/users/#{current_user.id}/edit" do %>
               <span class="label label-info glyphicon glyphicon-pencil"><%= I18n.t("users.side_bar.settings") %></span>
             <% end %>
           </h4>
@@ -29,10 +30,10 @@
     </div>
     <ul class="nav nav-pills nav-stacked">
       <% if current_user == disp_user %>
-        <li><a><i class="glyphicon glyphicon-envelope"></i> <%= disp_user.email %></a></li>
+        <li class="sidebar-content"><a><i class="glyphicon glyphicon-envelope"></i> <%= disp_user.email %></a></li>
       <% end %>
-      <li><a><i class="glyphicon glyphicon-user"></i> <%= disp_user.description %></a></li>
-      <li><a><i class="glyphicon glyphicon-map-marker"></i> <%= disp_user.location %></a></li>
+      <li class="sidebar-content"><a><i class="glyphicon glyphicon-user"></i> <%= disp_user.description %></a></li>
+      <li class="sidebar-content"><a><i class="glyphicon glyphicon-map-marker"></i> <%= disp_user.location %></a></li>
     </ul> 
   </div>
 </div>
@@ -42,5 +43,4 @@
       <%= render 'shared/micropost_form' %>
     </section>
   </aside>
-  <hr>
 <% end %>

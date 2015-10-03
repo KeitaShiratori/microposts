@@ -1,9 +1,11 @@
-<h3>
-  Following (<%= @following.count %>)
-</h3>
-
-<ol class="following">
-  <% @following.reverse_each do |u| %>
-    <%= render partial: 'users/followuser', locals: { u: u } %>
-  <% end %>
-</ol>
+<% if @following.present? %>
+  <ol class="following">
+    <% @following.reverse_each do |u| %>
+      <%= render partial: 'users/followuser', locals: { u: u } %>
+    <% end %>
+  </ol>
+<% else %>
+  <h4>
+    <%= I18n.t('users.micropost_list.following.no_item') %>
+  </h4>
+<% end %>

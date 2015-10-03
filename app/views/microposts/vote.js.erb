@@ -2,3 +2,13 @@ $("#vote-form-<%= @micropost.id %>").html("<%= escape_javascript(render('shared/
 $("#vote-form-<%= @micropost.id %>").html("<%= escape_javascript(render('shared/vote_form', micropost: @micropost)) %>");
 $("#genki-<%= @micropost.id %>").html("<%= escape_javascript(render('shared/genki', micropost: @micropost)) %>");
 $("#genki_sum").html("<%= escape_javascript(render('shared/genki_sum')) %>");
+$(".genkidama")
+  .height(<%= ReputationSystem::Evaluation.sum(:value).to_i / 60 + 20 %>)
+  .width(<%=  ReputationSystem::Evaluation.sum(:value).to_i / 60 + 20 %>)
+  .css("top",<%= ReputationSystem::Evaluation.sum(:value).to_i  / 30 * -0.5 + 7 %>)
+  .css("left",<%= ReputationSystem::Evaluation.sum(:value).to_i / 60 * -0.5 + 28 %>)
+  ;
+$(".energy>span")
+  .removeClass("hidden")
+  .css("animation", "energy_shoot")
+  ;

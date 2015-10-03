@@ -1,4 +1,7 @@
-<h3>
-  <%= @microposts.count %> Microposts Found
-</h3>
-<%= render 'shared/micropost_list' %>
+<% if @microposts.present? %>
+  <%= render 'shared/micropost_list' %>
+<% else %>
+  <h4>
+    <%= I18n.t('users.index.microposts.no_item') %>
+  </h4>
+<% end %>

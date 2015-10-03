@@ -22,12 +22,13 @@ class MicropostsController < ApplicationController
   
   def vote
     @micropost = Micropost.find(params[:id])
+    message_id = format("%03d", Random.rand(1 .. 10))
     if params[:type] == "up"
       @micropost.add_evaluation(:likes, 1, current_user)
-      message = "Thank you for Genki!"
+      message = I18n.t("micropost_vote.genki_#{message_id}")
     else 
       @micropost.delete_evaluation(:likes, current_user)
-      message = "Genki Canceled!"
+      message = I18n.t("micropost_vote.cancel_#{message_id}")
     end
     flash.now[:info] = message
   end

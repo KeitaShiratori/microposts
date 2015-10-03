@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     search_users
     @micropost = current_user.microposts.build
   end
-  
+
   def search_users
     @users = search_user
   end
@@ -35,9 +35,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:info] =  I18n.t('users_create.log_in_as.pre') + @user.name + I18n.t('users_create.log_in_as.suf')
       session[:user_id] = @user.id
-      flash[:info] = "logged in as #{@user.name}"
       redirect_to root_url
     else
       render 'new'
@@ -46,12 +45,16 @@ class UsersController < ApplicationController
 
   def edit
     @user = set_user
+    if current_user != @user
+      flash.now[:danger] = '不正なページ遷移を検出しました'
+      redirect_to root_url
+    end
   end
 
   # users_controller.rb
   def update
     if !check_old_pwd
-      flash[:danger] = 'パスワードが一致しません'
+      flash.now[:danger] = 'パスワードが一致しません'
       return render 'edit'
     end
     
@@ -60,29 +63,29 @@ class UsersController < ApplicationController
 
     if @user.update(profile)
       # 保存に成功した場合はトップページへリダイレクト
-      flash[:info] = 'メッセージを編集しました'
+      flash.now[:info] = 'メッセージを編集しました'
       redirect_to @user
     else
       # 保存に失敗した場合は編集画面へ戻す
-      flash[:danger] = 'この内容は登録できません'
+      flash.now[:danger] = 'この内容は登録できません'
       render 'edit'
     end
   end
 
   def following
-    @following = User.find(params[:follower_id]).following_users
+    @following = User.find(params[:follower_id]).following_users.order(:created_at).reverse_order
   end
   
   def followers
-    @followers = User.find(params[:followed_id]).follower_users
+    @followers = User.find(params[:followed_id]).follower_users.order(:created_at).reverse_order
   end
   
   def microposts
-    @microposts = @user.microposts
+    @microposts = @user.microposts.order(:created_at).reverse_order
   end
   
   def feed
-    @microposts = @user.feed_items.includes(:user)
+    @microposts = @user.feed_items.includes(:user).order(:created_at).reverse_order
   end
     
 
@@ -100,7 +103,7 @@ private
   
   # get parameters for search
   def search_params
-    params.permit(:q)
+    params.permit(:q, :page)
   end
   
   def check_old_pwd
@@ -138,9 +141,8 @@ private
     for i in 1...keyword_arrays.length
       users_sel = users_sel.or(users.matches("\%#{keyword_arrays[i]}\%"))
     end
-    logger.debug("SQL: #{User.where(users_sel).to_sql}")
 
-    User.where(users_sel)
+    User.where(users_sel).order(:created_at).reverse_order
   end
 
   def search_micropost
@@ -158,9 +160,8 @@ private
     for i in 1...keyword_arrays.length
       microposts_sel = microposts_sel.or(microposts.matches("\%#{keyword_arrays[i]}\%"))
     end
-    logger.debug("SQL: #{Micropost.where(microposts_sel).to_sql}")
 
-    Micropost.where(microposts_sel)
+    Micropost.where(microposts_sel).order(:created_at).reverse_order
   end
 
   def clear_search_condition

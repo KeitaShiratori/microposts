@@ -1,3 +1,7 @@
-<h3>Micropost Feed</h3>
-<%= render 'shared/micropost_list' %>
-
+<% if @microposts.present? %>
+  <%= render 'shared/micropost_list' %>
+<% else %>
+  <h4>
+    <%= I18n.t('users.micropost_list.feed.no_item') %>
+  </h4>
+<% end %>

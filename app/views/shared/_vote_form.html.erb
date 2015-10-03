@@ -1,6 +1,6 @@
 <% if current_user.liked_for?(micropost) %>
   <%= link_to vote_micropost_path(micropost, type: "down"), method: "post", remote: true do %>
-    <span class="label label-warning glyphicon glyphicon-remove"> <%= I18n.t('users.micropost_list.cancel') %> </span>
+    <span class="label label-success"> <%= I18n.t('users.micropost_list.cancel') %> </span>
   <% end %>
 <% else %>
   <%= link_to vote_micropost_path(micropost, type: "up"), method: "post", remote: true do %>

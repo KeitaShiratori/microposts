@@ -1,4 +1,5 @@
-<%= form_for(current_user.following_relationships.build, remote: true) do |f| %>
-  <div><%= hidden_field_tag :followed_id, @user.id %></div>
-  <%= f.submit "Follow #{@user.name}", class: "btn btn-primary" %>
+<%= link_to relationships_path(followed_id: user.id), method: "post", remote: true do %>
+  <span class="label label-info glyphicon glyphicon-heart">
+    <%= I18n.t('users.follow.follow') %>
+  </span>
 <% end %>

@@ -1,3 +1,23 @@
-<span id="goku"></span>
-  NOW <%= ReputationSystem::Evaluation.sum(:value).to_i %> / 18,000 GENKI
+<span class="goku">
+  <span class="genkidama"></span>
+</span>
+<span id="genki-counter">
+  <%= I18n.t('genki_sum.genki_dama_size') %>
+  <%= number_with_delimiter (ReputationSystem::Evaluation.sum(:value).to_i + 1000) %> / <%= number_with_delimiter 18000 %>
+</span>
 <span id="enemy"></span>
+
+<!-- デバッグ用 -->
+<% ratio = 1 %>
+<script>
+  $(".genkidama")
+  .height(<%= ReputationSystem::Evaluation.sum(:value).to_i * ratio / 60 + 20 %>)
+  .width(<%=  ReputationSystem::Evaluation.sum(:value).to_i * ratio / 60 + 20 %>)
+  .css("top",<%= ReputationSystem::Evaluation.sum(:value).to_i * ratio  / 30 * -0.5 + 7 %>)
+  .css("left",<%= ReputationSystem::Evaluation.sum(:value).to_i * ratio / 60 * -0.5 + 28 %>)
+  ;
+</script>
+
+<span class="energy">
+  <span></span>
+</span>

@@ -5,7 +5,6 @@
 
 body {
   padding-top: 60px;
-  word-break: break-all;
 }
 
 section {
@@ -65,19 +64,142 @@ p {
   margin-bottom:5px;
   background: image-url("bg_genki_sum.png") repeat center center;
   
-  #goku, #enemy{
+  #genki-counter{
+    background-color: rgba(255,255,255,0.5)
+  }
+
+  .goku, #enemy{
     padding: 0px 40px;
     margin: 5%;
   }
 
-  #goku{
-    background: image-url("goku_genki_1000.gif") no-repeat center center; 
+  .goku{
+    background: image-url("goku_002_01.png") no-repeat center center; 
+    position: relative;
+    height: 0px;
+    width: 0px;
+  }
+  .goku > span{
+    position: absolute;
+    height: 0px;
+    width: 0px;    
+  }
+  .genkidama{
+    border-radius:50%;
+    background: #00ddff;
+    background: rgba(0,200,255,0.5);
+    -webkit-animation: SPINER 1s linear infinite;
+    animation: GENKIDAMA 1s linear infinite;
+  }
+  @-webkit-keyframes SPINER{
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  @keyframes GENKIDAMA{
+    0% {
+      background: #00ddff;
+      background: rgba(20,180,255,0.5);
+      box-shadow: rgba(24, 96, 216, 0.2) 6px 6px 0px 1px inset;
+    }
+    50% {
+      background: #00ddff;
+      background: rgba(0,200,255,0.5);
+      box-shadow: 100px;
+      box-shadow: rgba(64, 96, 248, 0.1) -6px -6px 1px 3px inset;
+    }
+    100% {
+      background: #00ddff;
+      background: rgba(20,180,255,0.5);
+      box-shadow: 0px;
+      box-shadow: rgba(24, 96, 216, 0.2) 6px 6px 0px 1px inset;
+    }
   }
   
   #enemy{
     // background: image-url("test.gif") no-repeat center center; 
   }
 }
+
+
+// エネルギー弾
+.energy{
+  > span{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius:50%;
+    background: #00ddff;
+    background: rgba(0,200,255,0.5);
+    
+    animation: energy_shoot 2.2s ease infinite;
+  }
+}
+/*
+==============================================
+energy_shoot
+==============================================
+*/
+
+.energy_shoot{
+	animation-name: energy_shoot;
+	-webkit-animation-name: energy_shoot;
+
+	animation-duration: 2.2s;	
+	-webkit-animation-duration: 2.2s;
+
+	animation-timing-function: ease;	
+	-webkit-animation-timing-function: ease;		
+}
+
+@keyframes energy_shoot {
+	0% {
+		transform: translateY(0%);	
+	}
+	35% {
+		transform: translateY(8%);
+	}	
+	70% {
+		transform: translateY(0%);
+		transform: translateY(100%) scale(0.6) scaleY(0.5);
+	}			
+	88%{
+		transform: translateY(-7%) scaleY(1.12);
+	}
+	93%{
+		transform: translateY(3%);
+	}	
+	100% {
+		transform: translateY(0%) scale(1) scaleY(1);
+	}	
+}
+
+@-webkit-keyframes energy_shoot {
+	0% {
+		-webkit-transform: translateY(0%);	
+	}
+	35% {
+		-webkit-transform: translateY(8%);	
+	}	
+	70% {
+		-webkit-transform: translateY(0%);
+		-webkit-transform: translateY(100%) scale(0.6) scaleY(0.5);
+	}			
+	88%{
+		-webkit-transform: translateY(-7%) scaleY(1.12);
+	}
+	93%{
+		-webkit-transform: translateY(3%);
+	}	
+	100% {
+		-webkit-transform: translateY(0%) scale(1) scaleY(1);
+	}	
+}
+
+
 
 /* mixins, variables, etc. */
 
@@ -111,9 +233,8 @@ input {
 }
 
 .field_with_errors {
-  @extend .has-error;
-  .form-control {
-    color: $state-danger-text;
+  input, textarea, select, .uneditable-input {
+    border: 1px solid #f00;
   }
 }
 
@@ -154,6 +275,10 @@ aside {
   margin-top: 15px;
 }
 
+.sidebar-content{
+  word-break: break-all;
+  white-space: pre-line;
+}
 /* microposts */
 
 .microposts, .followers, .following  {
@@ -171,12 +296,51 @@ aside {
     padding-top: 0;
   }
   .content {
-    display: block;
+    word-break: break-all;
+    white-space: pre-line;  
     margin-left: 60px;
+    display: block;
     img {
       display: block;
       padding: 5px 0;
     }
+  }
+  .arrow_box {
+    margin: 10px 0px 20px 70px;
+    padding: 10px 15px 15px 15px;
+    border-radius: 6px;
+  	position: relative;
+  	background: #eeeeee;
+  	border: 1px solid #333333;
+  }
+  .arrow_box:after, .arrow_box:before {
+  	right: 100%;
+  	top: 30%;
+  	border: solid transparent;
+  	content: " ";
+  	height: 0;
+  	width: 0;
+  	position: absolute;
+  	pointer-events: none;
+  }
+  
+  .arrow_box:after {
+  	border-color: rgba(238, 238, 238, 0);
+  	border-right-color: #eeeeee;
+  	border-top-width: 0px;
+  	border-right-width: 20px;
+  	border-bottom-width: 20px;
+  	border-left-width: 0px;
+  	margin-top: -10px;
+  }
+  .arrow_box:before {
+  	border-color: rgba(51, 51, 51, 0);
+  	border-right-color: #333333;
+  	border-top-width: 0px;
+  	border-right-width: 22px;
+  	border-bottom-width: 23px;
+  	border-left-width: 0px;
+  	margin-top: -11px;
   }
   .timestamp, .location {
     color: $gray-light;

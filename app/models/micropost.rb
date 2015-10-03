@@ -11,4 +11,5 @@ class Micropost < ActiveRecord::Base
   # イイネ機能
   # http://easyramble.com/activerecord-reputation-system.html
   has_reputation :likes, source: :user, aggregated_by: :sum
+  
 end

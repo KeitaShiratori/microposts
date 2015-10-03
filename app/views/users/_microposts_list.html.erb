@@ -1,6 +1,7 @@
-<h3>
-  Microposts (<%= @user.microposts.count %>)
-</h3>
-
-<%= render 'shared/micropost_list' %>
-
+<% if @user.microposts.count > 0 %>
+  <%= render 'shared/micropost_list' %>
+<% else %>
+  <h4>
+    <%= I18n.t('users.micropost_list.micropost.no_item') %>
+  </h4>
+<% end %>

@@ -19,6 +19,8 @@
           </li>
           <li id="settings" class="nav_menu hidden"><%= link_to I18n.t('layouts.settings'), '#' %></li>
           <li id="search" class="nav_menu hidden"><%= link_to I18n.t('layouts.search'), '#' %></li>
+          <% @user.present? ? user_name = @user.name : user_name = "" %>
+          <li id="other_page" class="nav_menu hidden"><a href="#"><%= user_name + I18n.t('layouts.other_page') %></a></li>
         <% else %>
           <li id="log_in" class="header_nav"><%= link_to I18n.t('layouts.log_in'), login_path %></li>
           <li id="sign_up" class="nav_menu hidden"><%= link_to I18n.t('layouts.sign_up'), '#' %></li>
@@ -30,7 +32,7 @@
         <ul class="nav navbar-nav navbar-right">
           <form class="navbar-form navbar-left" role="search" action="/users/">
     				<div class="form-group">
-    					<input type="text" class="form-control" name="q" placeholder="Search User / Microposts">
+    					<input type="text" class="form-control" name="q" placeholder=<%= I18n.t('search.user_or_microposts') %>>
     				</div>
     				<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
     			</form>
@@ -41,4 +43,4 @@
 </header>
 <h1 id="genki_sum">
   <%= render 'shared/genki_sum' %>
-</h1> 
+</h1>

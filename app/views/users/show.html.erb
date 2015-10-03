@@ -1,21 +1,20 @@
 <div class="row">
   <div class="col-md-4">
     <%= render 'shared/sidebar' %>
-    <%= render 'follow_form' if logged_in? %>
   </div>
   <div class="col-md-8">
     <ul class="nav nav-tabs nav-justified">
     	<li role="presentation" class="tabmenu active" id="feed">
-    	  <%= link_to "Feed", feed_path(:id=>@user.id), remote: true %>
+    	  <%= link_to I18n.t('users.micropost_list.feed.tab_name'), feed_path(:id=>@user.id), remote: true %>
     	</li>
     	<li role="presentation" class="tabmenu" id="microposts">
-    	  <%= link_to "Microposts", microposts_path(:id=>@user.id), remote: true %>
+    	  <%= link_to I18n.t('users.micropost_list.micropost.tab_name'), microposts_path(:id=>@user.id), remote: true %>
     	</li>
     	<li role="presentation" class="tabmenu" id="following">
-    	  <%= link_to "Following", following_path(:follower_id=>@user.id), remote: true %>
+    	  <%= link_to I18n.t('users.micropost_list.following.tab_name'), following_path(:follower_id=>@user.id), remote: true %>
       </li>
     	<li role="presentation" class="tabmenu" id="followers">
-    	  <%= link_to "Followers", followers_path(:followed_id=>@user.id), remote: true %>
+    	  <%= link_to I18n.t('users.micropost_list.followers.tab_name'), followers_path(:followed_id=>@user.id), remote: true %>
       </li>
     </ul>
     <div id="follow_list">
@@ -26,5 +25,9 @@
 
 <script>
   $(".nav_menu").removeClass("active");
-  $("#my_page").addClass("active"); 
+  <% if current_user == @user %>
+    $("#my_page").addClass("active"); 
+  <% else %>
+    $("#other_page").removeClass("hidden").addClass("active"); 
+  <% end %>
 </script>
