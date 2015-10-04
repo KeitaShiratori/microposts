@@ -8,7 +8,14 @@ $(".genkidama")
   .css("top",<%= ReputationSystem::Evaluation.sum(:value).to_i  / 30 * -0.5 + 7 %>)
   .css("left",<%= ReputationSystem::Evaluation.sum(:value).to_i / 60 * -0.5 + 28 %>)
   ;
-$(".energy>span")
-  .removeClass("hidden")
-  .css("animation", "energy_shoot")
-  ;
+
+<% if current_user.liked_for?(@micropost) %>
+  $(".energy>span")
+    .removeClass("hidden")
+    .css({
+        animation:"energy_shoot 2.2s ease 1",
+        top: $("#vote-form-<%= @micropost.id %>").offset().top-30,
+        left: $("#vote-form-<%= @micropost.id %>").offset().left+20,
+      })
+    ;
+<% end %>
